@@ -3,6 +3,14 @@ import math
 
 
 def dijskstra(start_q, start_r, game_hex_map, players_map, my_id):
+
+    ##dodato
+    for player_key in players_map.keys():
+        game_hex_map[player_key] = players_map[player_key]
+
+    # print("mapa sa svim a i plejerima")
+    # print(game_hex_map)
+
     move_q = [0, 1, 1, 0, -1, -1]
     move_r = [-1, -1, 0, 1, 1, 0]
 
@@ -37,6 +45,10 @@ def dijskstra(start_q, start_r, game_hex_map, players_map, my_id):
             if next_key not in game_hex_map.keys():
                 continue
 
+            ##dodato
+            if game_hex_map[next_key]['type'] == 'PLAYER':
+                continue
+
             if game_hex_map[next_key]['type'] == 'ASTEROID':
                 w = math.ceil(350.0 / players_map[my_id]['power']) + 1
             elif game_hex_map[next_key]['type'] == 'BLACKHOLE':
@@ -59,9 +71,9 @@ def dijskstra(start_q, start_r, game_hex_map, players_map, my_id):
                     parent_map[f'{qq}:{rr}'] = next_key
                     heapq.heappush(min_heap, (dist_map[f'{qq}:{rr}'], qq, rr))
 
-    print(dist_map)
-    print()
-    print(parent_map)
+    # print(dist_map)
+    # print()
+    # print(parent_map)
     return dist_map, parent_map
 
 

@@ -59,6 +59,6 @@ def create_hexagon_game_map(game_state_json):
         game_hex_map[key1] = {'type': 'WORMHOLE', 'teleportsTo': f'{key2}'}
         game_hex_map[key2] = {'type': 'WORMHOLE', 'teleportsTo': f'{key1}'}
 
-    print(game_hex_map)
+    # print(game_hex_map)
     # drugi argument je mapa za XP i HP boost, treci argument je niz unutar koga se nalazi mapa sa podacima u formatu {'name': 'neko_ime','power': '50'...}
     return game_hex_map
