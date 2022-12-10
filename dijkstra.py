@@ -54,17 +54,5 @@ def dijskstra(start_q, start_r, game_hex_map, players_map, my_id):
                     dist_map[f'{qq}:{rr}'] = dist_map[key] + w
                     heapq.heappush(min_heap, (dist_map[f'{qq}:{rr}'], qq, rr))
 
-
-            # if dist_map[key] + w < dist_map[next_key]:
-            #     dist_map[next_key] = dist_map[key] + w
-            #     if game_hex_map[next_key]['type'] != 'WORMHOLE':
-            #         heapq.heappush(min_heap, (dist_map[next_key], qq, rr))
-            #     else:
-            #         qq, rr = game_hex_map[next_key]['teleportsTo'].split(':')
-            #         qq = int(qq) + move_q[i]
-            #         rr = int(rr) + move_r[i]
-            #         dist_map[f'{qq}:{rr}'] = dist_map[key] + w
-            #         heapq.heappush(min_heap, (dist_map[f'{qq}:{rr}'], qq, rr))
-
     print(dist_map)
     return dist_map
