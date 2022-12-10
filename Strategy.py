@@ -43,8 +43,7 @@ def can_i_win(me, opponent):
 
     while True:
         opponent_health -= me['power']
-        if opponent['trapped'] == False:
-            my_health -= opponent['power']
+
 
         # ako sam unutar boss zone
         if me['q'] >= -4 and me['q'] <= 4 and me['r'] >= -4 and me['r'] <= 4 and me['q'] + me['r'] >= -4 and me['q'] + \
@@ -60,6 +59,8 @@ def can_i_win(me, opponent):
             return True
         if my_health <= 0:
             return False
+        if opponent['trapped'] == False:
+            my_health -= opponent['power']
 
 
 # closest_opponent ima u sebi q,r gde ulazi u boss zonu, razdaljinu do boss zone, i poslednji argument su sve ostale info o opponent-u
@@ -165,7 +166,7 @@ def game_next_move(me, all_players, board):
         #return "MOVE " + newkey
         split5, split6 = newkey.split(":")
 
-        if board.get(newkey) == "ASTEROID":
+        if board.get(newkey)['type'] == "ASTEROID":
             return ("attack", split5, split6)
         return ("move", split5, split6)
 
