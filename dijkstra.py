@@ -3,16 +3,43 @@ import math
 
 
 def dijskstra(start_q, start_r, game_hex_map, players_map, my_id):
+    move_q = [0, 1, 1, 0, -1, -1]
+    move_r = [-1, -1, 0, 1, 1, 0]
 
     ##dodato
     for player_key in players_map.keys():
         game_hex_map[player_key] = players_map[player_key]
 
+    opponent_adj_cells = {}
+    for player_key in players_map.keys():
+        if my_id != player_key:
+            q = players_map[player_key]['q']
+            r = players_map[player_key]['r']
+
+            for i in range(-3, 4):
+                for j in range(-3, 4):
+                    if i == 0 and j == 0:
+                        continue
+
+                    qq = q + i
+                    rr = r + j
+
+
+                    zbir = abs(qq + rr)
+                    if zbir < 2:
+                        power = 3
+                    elif zbir < 3:
+                        power = 2
+                    else:
+                        power = 1
+
+                    adj_cell_key = f'{qq}:{rr}'
+                    if adj_cell_key in game_hex_map.keys():
+                        opponent_adj_cells[adj_cell_key] = power
+
+
     # print("mapa sa svim a i plejerima")
     # print(game_hex_map)
-
-    move_q = [0, 1, 1, 0, -1, -1]
-    move_r = [-1, -1, 0, 1, 1, 0]
 
     min_heap = []
     dist_map = {}
@@ -55,6 +82,10 @@ def dijskstra(start_q, start_r, game_hex_map, players_map, my_id):
                 w = 3
             else:
                 w = 1
+
+            ##dodao
+            if next_key in opponent_adj_cells.keys():
+                w += opponent_adj_cells[next_key]
 
             if game_hex_map[next_key]['type'] != 'WORMHOLE':
                 if dist_map[key] + w < dist_map[next_key]:

@@ -142,26 +142,26 @@ def game_next_move(me, all_players, board):
             if opponent['q'] == me['q'] and opponent['r'] == me['r']:
                 continue
             if in_shooting_range(me, opponent):
-                if can_i_win(me, opponent):
-                    return ["attack", opponent['q'], opponent['r']]
-                else:
-                    if can_run_away(me, opponent, board):
-                        return get_runaway_coordinates(me, opponent, board)
-                    else:
+                # if can_i_win(me, opponent):
+                #     return ["attack", opponent['q'], opponent['r']]
+                # else:
+                #     if can_run_away(me, opponent, board):
+                #         return get_runaway_coordinates(me, opponent, board)
+                #     else:
 
-                        return ["attack", opponent['q'], opponent['r']]
+                return ["attack", opponent['q'], opponent['r']]
         distmap, parentmap = dij.dijskstra(me['q'], me['r'], board, all_players, me['playerIdx'])
 
         newkey = dij.next_cell(parentmap, me['q'], me['r'], 0, 0)
         newq, newr = newkey.split(":")
         newq = int(newq)
         newr = int(newr)
-        if newq >=-5 and newq <=5 and newr >= -5 and newr <=5 and newq + newr <=5:
-            if distmap.get("0:0") > 5:
-                shootval = parentmap.get(parentmap.get("0:0"))
-                #return "SHOOT " + shootval
-                split3,split4 = shootval.split(":")
-                return ["attack", split3, split4]
+        # if newq >=-5 and newq <=5 and newr >= -5 and newr <=5 and newq + newr <=5:
+        #     if distmap.get("0:0") > 5:
+        #         shootval = parentmap.get(parentmap.get("0:0"))
+        #         #return "SHOOT " + shootval
+        #         split3,split4 = shootval.split(":")
+        #         return ["attack", split3, split4]
 
         #return "MOVE " + newkey
         split5, split6 = newkey.split(":")
