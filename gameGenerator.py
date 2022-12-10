@@ -1,6 +1,23 @@
 import json
 
 
+def get_my_player_id(game_state_json):
+    game_state_data = json.loads(game_state_json)
+
+    return game_state_data['playerIdx']
+
+
+def create_player_info(game_state_json):
+    players_map = {}
+    game_state_data = json.loads(game_state_json)
+
+    for i in range(1, 5):
+        player = game_state_data['gameState'][f'player{i}']
+        players_map[player['playerIdx']] = player
+
+    return players_map
+
+
 def create_hexagon_game_map(game_state_json):
     game_state_data = json.loads(game_state_json)
     tiles_arr = game_state_data['gameState']['map']['tiles']

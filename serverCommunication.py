@@ -42,9 +42,8 @@ def game_train(token,mapName, playerIdx, time):
 
     response = requests.post(url, headers={"Authorization": f"Bearer {token}"}, json=myjson)
 
-    data = json.loads(response.text)
-
-    print(data)
+    print(response.text)
+    return response.text
 
 
 def game_action_train(token, action, x, y):
@@ -55,8 +54,8 @@ def game_action_train(token, action, x, y):
 
     response = requests.post(url, headers={"Authorization": f"Bearer {token}"}, json=myjson)
 
-    data = json.loads(response.text)
+    #data = json.loads(response.text)
 
-    print(data)
-    return data
+    print(response.text)
+    return response.text
 
