@@ -1,16 +1,15 @@
-# This is a sample Python script.
+import serverCommunication
+import hexagonGenerator
+import json
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    #token = serverCommunication.login()
+    #serverCommunication.game_train(token,"test1.txt",1,8)
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    game_state_json = open('game_state.json')
+
+    hexagonGenerator.create_hexagon_game_map(game_state_json.read())
+    #serverCommunication.join_game(token)
+    #serverCommunication.game_do_action(token,"move","-6","-7")
+    #serverCommunication.game_action_train(token, "move", "-4", "-10")
+
