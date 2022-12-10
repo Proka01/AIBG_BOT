@@ -128,6 +128,7 @@ def get_runaway_coordinates(me, opponent, board):
 
 # dodati da prosledjuje info o nama u mapi, a ne samo koordinate
 def game_next_move(me, all_players, board):
+
     if me['q'] >= -4 and me['q'] <= 4 and me['r'] >= -4 and me['r'] <= 4 and me['q'] + me['r'] >= -4 and me['q'] + me[
         'r'] <= 4:
         #return "SHOOT " + get_boss_coordinates(me)
@@ -145,8 +146,10 @@ def game_next_move(me, all_players, board):
                     if can_run_away(me, opponent, board):
                         return get_runaway_coordinates(me, opponent, board)
                     else:
+
                         return ["attack", opponent['q'], opponent['r']]
         distmap, parentmap = dij.dijskstra(me['q'], me['r'], board, all_players, me['playerIdx'])
+
         newkey = dij.next_cell(me['q'], me['r'], 0, 0)
         newq, newr = newkey.split(":")
         if newq >=-5 and newq <=5 and newr >= -5 and newr <=5 and newq + newr <=5:
