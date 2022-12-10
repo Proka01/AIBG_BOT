@@ -148,8 +148,19 @@ def game_next_move(me, all_players, board):
                 #     if can_run_away(me, opponent, board):
                 #         return get_runaway_coordinates(me, opponent, board)
                 #     else:
-
-                return ["attack", opponent['q'], opponent['r']]
+                startq = min(opponent['q'], me['q'])
+                endq = max(opponent['q'], me['q'])
+                startr = min(opponent['r'], me['r'])
+                endr = max(opponent['r'], me['r'])
+                atflag = True
+                for i in range(startq, endq+1):
+                    for j in range(startr, endr + 1):
+                        temp = board.get(f"{i}:{j}")['type']
+                        if temp == "ASTEROID" or temp=="WORMHOLE" or temp=="BLACKHOLE" or temp=="BOSS":
+                            atflag = False
+                            continue
+                if atflag == True:
+                    return ["attack", opponent['q'], opponent['r']]
         distmap, parentmap = dij.dijskstra(me['q'], me['r'], board, all_players, me['playerIdx'])
 
         newkey = dij.next_cell(parentmap, me['q'], me['r'], 0, 0)

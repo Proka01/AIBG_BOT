@@ -17,7 +17,7 @@ if __name__ == '__main__':
 
 
     token = serverCommunication.login()
-    serverCommunication.game_train(token, "test2.txt", 1, 1.5)
+    serverCommunication.game_train(token, "test1.txt", 1, 1.5)
 
     state = serverCommunication.game_action_train(token, "move", -7, -6)
     game_hex_map = gameGenerator.create_hexagon_game_map(state)
