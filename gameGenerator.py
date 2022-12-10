@@ -20,7 +20,6 @@ def create_player_info(game_state_json):
         #player = players[f'player{i}']
         #players_map[player['playerIdx']] = player
 
-    print("gas", players_map)
     return players_map
 
 
@@ -34,8 +33,6 @@ def create_hexagon_game_map(game_state_json):
 
     game_hex_map = {}
     wormhole_map = {}
-    objective_map = {}
-    bots_map = {}
 
     for tiles in tiles_arr:
         for tile in tiles:
@@ -64,4 +61,4 @@ def create_hexagon_game_map(game_state_json):
 
     print(game_hex_map)
     # drugi argument je mapa za XP i HP boost, treci argument je niz unutar koga se nalazi mapa sa podacima u formatu {'name': 'neko_ime','power': '50'...}
-    return game_hex_map, objective_map, bots_map
+    return game_hex_map

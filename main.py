@@ -16,16 +16,18 @@ if __name__ == '__main__':
     # dijkstra.next_cell(par, -7, -7, 8, 1)
 
     token = serverCommunication.login()
-    #serverCommunication.game_train(token, "test1.txt", 1, 10)
+    serverCommunication.game_train(token, "test1.txt", 1, 10)
 
-    state = serverCommunication.game_action_train(token, "move", -7, -7)
+    state = serverCommunication.game_action_train(token, "move", -7, -6)
+    game_hex_map = gameGenerator.create_hexagon_game_map(state)
+    all_players = gameGenerator.create_player_info(state)
+    action = Strategy.game_next_move(all_players[1], all_players, game_hex_map)
 
-    #a = gameGenerator.create_player_info(state)
-    #print("a ", a[1])
-
-    me = gameGenerator.create_player_info(state)
-    print(me[1]['q'])
-    Strategy.game_next_move(me[1])
+    while 1:
+        all_players = gameGenerator.create_player_info(state)
+        action = Strategy.game_next_move(all_players[1], all_players, game_hex_map)
+        print(action)
+        state = serverCommunication.game_action_train(token, action[0], action[1], action[2])
 
     # while 1:
     #     me = gameGenerator.create_player_info(state)

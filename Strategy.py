@@ -44,7 +44,7 @@ def can_i_win(me, opponent):
     while True:
         opponent_health -= me['power']
         if opponent['trapped'] == False:
-            my_health -= opponent_health['power']
+            my_health -= opponent['power']
 
         # ako sam unutar boss zone
         if me['q'] >= -4 and me['q'] <= 4 and me['r'] >= -4 and me['r'] <= 4 and me['q'] + me['r'] >= -4 and me['q'] + \
@@ -136,8 +136,9 @@ def game_next_move(me, all_players, board):
         return ["attack", split1, split2]
     else:
         # dodati sta ako smo blizu neprijatelja za range <= 3
-        for opponent in all_players:
-            if opponent['q'] == me['q'] and opponent['p'] == me['p']:
+        for oponent_key in all_players.keys():
+            opponent = all_players[oponent_key]
+            if opponent['q'] == me['q'] and opponent['r'] == me['r']:
                 continue
             if in_shooting_range(me, opponent):
                 if can_i_win(me, opponent):
@@ -150,8 +151,10 @@ def game_next_move(me, all_players, board):
                         return ["attack", opponent['q'], opponent['r']]
         distmap, parentmap = dij.dijskstra(me['q'], me['r'], board, all_players, me['playerIdx'])
 
-        newkey = dij.next_cell(me['q'], me['r'], 0, 0)
+        newkey = dij.next_cell(parentmap, me['q'], me['r'], 0, 0)
         newq, newr = newkey.split(":")
+        newq = int(newq)
+        newr = int(newr)
         if newq >=-5 and newq <=5 and newr >= -5 and newr <=5 and newq + newr <=5:
             if distmap.get("0:0") > 5:
                 shootval = parentmap.get(parentmap.get("0:0"))
