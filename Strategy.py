@@ -80,7 +80,7 @@ global game_map
 global objective_map
 global bots_map
 global boss_map
-game_state_json = open('game_state_json2.json')
+#game_state_json = open('game_state_json2.json')
 global game_map
 global bots_map
 game_map, objective_map, bots_map = gg.create_hexagon_game_map(game_state_json.read())
@@ -126,7 +126,9 @@ def get_runaway_coordinates(me, opponent):
 
 
 # dodati da prosledjuje info o nama u mapi, a ne samo koordinate
-def game_next_move(me):
+def game_next_move(bots_map):
+    me = bots_map[1]
+    print("meee", me)
     if me['q'] >= -4 and me['q'] <= 4 and me['r'] >= -4 and me['r'] <= 4 and me['q'] + me['r'] >= -4 and me['q'] + me[
         'r'] <= 4:
         return "SHOOT " + get_boss_coordinates(me)
@@ -142,7 +144,7 @@ def game_next_move(me):
                     else:
                         return f"SHOOT {opponent['q']}:{opponent['r']}"
 
-        distmap, parentmap = dij.dijskstra(me['q'], me['r'], game_map, bots_map, "DEEP_BAIT")
+        distmap, parentmap = dij.dijskstra(me['q'], me['r'], game_map, bots_map, me['playerIdx'])
 
         newkey = dij.next_cell(me['q'], me['r'], 0, 0)
         newq, newr = newkey.split(":")
