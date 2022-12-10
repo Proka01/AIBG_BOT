@@ -8,12 +8,14 @@ def dijskstra(start_q, start_r, game_hex_map, players_map, my_id):
 
     min_heap = []
     dist_map = {}
+    parent_map = {}
     heapq.heappush(min_heap, (0, start_q, start_r))
 
     for tile in game_hex_map.keys():
         dist_map[tile] = 10 ** 9
 
     dist_map[f'{start_q}:{start_r}'] = 0
+    parent_map[f'{start_q}:{start_r}'] = f'{start_q}:{start_r}'
 
     while min_heap:
         d, q, r = heapq.heappop(min_heap)
@@ -45,26 +47,32 @@ def dijskstra(start_q, start_r, game_hex_map, players_map, my_id):
             if game_hex_map[next_key]['type'] != 'WORMHOLE':
                 if dist_map[key] + w < dist_map[next_key]:
                     dist_map[next_key] = dist_map[key] + w
+                    parent_map[next_key] = key
                     heapq.heappush(min_heap, (dist_map[next_key], qq, rr))
             else:
+                parent_map[next_key] = key
                 qq, rr = game_hex_map[next_key]['teleportsTo'].split(':')
                 qq = int(qq) + move_q[i]
                 rr = int(rr) + move_r[i]
                 if dist_map[key] + w < dist_map[f'{qq}:{rr}']:
                     dist_map[f'{qq}:{rr}'] = dist_map[key] + w
+                    parent_map[f'{qq}:{rr}'] = next_key
                     heapq.heappush(min_heap, (dist_map[f'{qq}:{rr}'], qq, rr))
 
-
-            # if dist_map[key] + w < dist_map[next_key]:
-            #     dist_map[next_key] = dist_map[key] + w
-            #     if game_hex_map[next_key]['type'] != 'WORMHOLE':
-            #         heapq.heappush(min_heap, (dist_map[next_key], qq, rr))
-            #     else:
-            #         qq, rr = game_hex_map[next_key]['teleportsTo'].split(':')
-            #         qq = int(qq) + move_q[i]
-            #         rr = int(rr) + move_r[i]
-            #         dist_map[f'{qq}:{rr}'] = dist_map[key] + w
-            #         heapq.heappush(min_heap, (dist_map[f'{qq}:{rr}'], qq, rr))
-
     print(dist_map)
-    return dist_map
+    print()
+    print(parent_map)
+    return dist_map, parent_map
+
+
+def next_cell(parent_map, start_q, start_r, end_q, end_r):
+    start_key = f'{start_q}:{start_r}'
+    next_key = f'{end_q}:{end_r}'
+    prev_key = ""
+
+    while next_key != start_key:
+        prev_key = next_key
+        next_key = parent_map[next_key]
+
+    return prev_key
+

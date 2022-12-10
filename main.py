@@ -11,7 +11,9 @@ if __name__ == '__main__':
     content = game_state_json2.read()
     players_map = gameGenerator.create_player_info(content)
     game_hex_map = gameGenerator.create_hexagon_game_map(content)
-    dijkstra.dijskstra(-7, -7, game_hex_map, players_map, 1)
+    dist, par = dijkstra.dijskstra(-7, -7, game_hex_map, players_map, 1)
+    dijkstra.next_cell(par, -7, -7, 8, 1)
+
 
     #serverCommunication.join_game(token)
     #serverCommunication.game_do_action(token,"move","-6","-7")
