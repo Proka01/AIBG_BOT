@@ -18,12 +18,15 @@ def create_player_info(game_state_json):
     return players_map
 
 
+
 def create_hexagon_game_map(game_state_json):
     game_state_data = json.loads(game_state_json)
     tiles_arr = game_state_data['gameState']['map']['tiles']
 
     game_hex_map = {}
     wormhole_map = {}
+    objective_map = {}
+    bots_map = {}
 
     for tiles in tiles_arr:
         for tile in tiles:
@@ -51,4 +54,5 @@ def create_hexagon_game_map(game_state_json):
         game_hex_map[key2] = {'type': 'WORMHOLE', 'teleportsTo': f'{key1}'}
 
     print(game_hex_map)
-    return game_hex_map
+    # drugi argument je mapa za XP i HP boost, treci argument je niz unutar koga se nalazi mapa sa podacima u formatu {'name': 'neko_ime','power': '50'...}
+    return game_hex_map, objective_map, bots_map
