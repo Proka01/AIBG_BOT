@@ -158,6 +158,9 @@ def game_next_move(me, all_players, board):
 
         #return "MOVE " + newkey
         split5, split6 = newkey.split(":")
+
+        if board.get(newkey) == "ASTEROID":
+            return ("attack", split5, split6)
         return ("move", split5, split6)
 
         # newq, newr = bossbfs(me['q'], me['r'])
