@@ -58,4 +58,5 @@ def game_action_train(token, action, x, y):
     data = json.loads(response.text)
 
     print(data)
+    return data
 
