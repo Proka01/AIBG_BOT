@@ -34,6 +34,7 @@ def game_do_action(token, action, x, y):
     data = json.loads(response.text)
 
     print(data)
+    return response.text
 
 
 def game_train(token,mapName, playerIdx, time):

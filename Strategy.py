@@ -128,7 +128,7 @@ def get_runaway_coordinates(me, opponent, board):
 
 
 # dodati da prosledjuje info o nama u mapi, a ne samo koordinate
-def game_next_move(me, all_players, board):
+def game_next_move(me, all_players, board): ## ,my_idx
 
     if me['q'] >= -4 and me['q'] <= 4 and me['r'] >= -4 and me['r'] <= 4 and me['q'] + me['r'] >= -4 and me['q'] + me[
         'r'] <= 4:
@@ -161,7 +161,7 @@ def game_next_move(me, all_players, board):
                             continue
                 if atflag == True:
                     return ["attack", opponent['q'], opponent['r']]
-        distmap, parentmap = dij.dijskstra(me['q'], me['r'], board, all_players, me['playerIdx'])
+        distmap, parentmap = dij.dijskstra(me['q'], me['r'], board, all_players, me['playerIdx']) ##,my_idx
 
         newkey = dij.next_cell(parentmap, me['q'], me['r'], 0, 0)
         newq, newr = newkey.split(":")
