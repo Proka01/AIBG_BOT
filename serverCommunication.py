@@ -4,12 +4,13 @@ import json
 
 def login():
     url = 'http://aibg2022.com:8081/user/login'
-    myjson = {'username': 'Deep_bAlt', 'password': '#rS@T!$&Sz'}
+    myjson = {'username': 'Deep_bAlt1', 'password': '#rS@T!$&Sz'}
 
     response = requests.post(url, json=myjson)
 
     data = json.loads(response.text)
 
+    print(data)
     return data['token']
 
 
