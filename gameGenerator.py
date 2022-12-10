@@ -51,3 +51,4 @@ def create_hexagon_game_map(game_state_json):
         game_hex_map[key2] = {'type': 'WORMHOLE', 'teleportsTo': f'{key1}'}
 
     print(game_hex_map)
+    return game_hex_map
